@@ -1,63 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-
-    android:orientation="vertical"
-    android:layout_margin="10dp"
-
     >
 
-    <TextView
+    <VideoView
+        android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registration Form"
-        android:gravity="center"
-        android:textSize="30dp"
-        />
-
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="10dp"
-        android:hint="User Name"
-
-        />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="Password"
-        android:layout_margin="10dp"
-
-        />
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="Email Address"
-        android:layout_margin="10dp"
-
-        />
-
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:textSize="20dp"
-        android:text="Registration"
 
         />
 
 
 
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="486dp"
+        android:layout_gravity="center"
+        android:background="@drawable/tas"
+        android:orientation="vertical"
+        >
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvDisplay"
+            android:layout_width="230dp"
+            android:layout_height="87dp"
+            android:layout_marginLeft="0.5in"
+            android:layout_marginTop="0.68in"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:textAlignment="textEnd"
+            android:paddingTop="20dp"
+
+
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="73dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="65dp"
+
+            >
+
+            <Button
+                android:id="@+id/decrease"
+                android:layout_width="45dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
+
+
+                />
+
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="45dp"
+                android:layout_height="59dp"
+                android:layout_marginStart="0.860in"
+                android:layout_marginTop="1dp"
+                android:backgroundTint="@color/white"
+
+
+
+                />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addCount"
+            android:layout_width="95dp"
+            android:layout_height="116dp"
+            android:layout_marginStart="153dp"
+            android:layout_marginTop="-5dp"
+            android:backgroundTint="#d7e0d9"
+
+            />
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

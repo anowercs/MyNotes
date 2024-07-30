@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Aws project</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="input_the_code_sent_to_mail">Input the code sent to mail</string>
+    <string name="registration_form">Registration Form</string>
+    <string name="namota">বারো কোটার নামতা</string>
+    <string name="already_have_account_click_here_to">Already have account? Click to</string>
+    <string name="log_in">Log In</string>
 </resources>
