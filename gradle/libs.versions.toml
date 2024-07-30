@@ -1,0 +1,40 @@
+[versions]
+agp = "8.5.0"
+awsAndroidSdkAuthUi = "2.6.27"
+awsAndroidSdkCognito = "2.35.0"
+awsAndroidSdkCore = "2.75.2"
+core = "2.19.1"
+coreVersion = "1.29.0"
+desugar_jdk_libs = "2.0.4"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+
+[libraries]
+aws-android-sdk-auth-core = { module = "com.amazonaws:aws-android-sdk-auth-core", version.ref = "awsAndroidSdkCognito" }
+aws-android-sdk-auth-ui = { module = "com.amazonaws:aws-android-sdk-auth-ui", version.ref = "awsAndroidSdkAuthUi" }
+aws-android-sdk-auth-userpools = { module = "com.amazonaws:aws-android-sdk-auth-userpools", version.ref = "awsAndroidSdkAuthUi" }
+aws-android-sdk-cognito = { module = "com.amazonaws:aws-android-sdk-cognito", version.ref = "awsAndroidSdkCognito" }
+aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCognito" }
+aws-android-sdk-core = { module = "com.amazonaws:aws-android-sdk-core", version.ref = "awsAndroidSdkCore" }
+aws-android-sdk-pinpoint = { module = "com.amazonaws:aws-android-sdk-pinpoint", version.ref = "awsAndroidSdkAuthUi" }
+aws-api = { module = "com.amplifyframework:aws-api", version.ref = "coreVersion" }
+aws-auth-cognito = { module = "com.amplifyframework:aws-auth-cognito", version.ref = "coreVersion" }
+core = { module = "com.amplifyframework:core", version.ref = "core" }
+core-v1290 = { module = "com.amplifyframework:core", version.ref = "coreVersion" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
