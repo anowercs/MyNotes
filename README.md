@@ -110,8 +110,8 @@ dependencies {
     implementation libs.mpandroidchart // For the graph
 
 }
-## Features in Development
 
+## Features in Development
  Offline support
  Note sharing
  Advanced fitness analytics
