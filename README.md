@@ -31,6 +31,7 @@ Notes Pro combines personal note-taking with fitness tracking in one integrated 
 - Glide for image loading
 
 ## Project Structure
+```plaintext
 app/
 ├── activities/
 │   ├── MainActivity.java
@@ -46,7 +47,8 @@ app/
 ├── services/
 │   └── StepCounterService.java
 └── utility/
-└── UserUtils.java
+    └── UserUtils.java
+```
 ## Setup
 1. Clone repository
 2. Configure AWS:
