@@ -2,4 +2,50 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple">#8692f7</color>
+    <color name="lavender">#8692f7</color>
+    <!--<color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>-->
+
+    <!--colors for profile-->
+    <color name="profilePrimaryDark">#FF3B30</color>
+    <color name="profileAccentColor">#F7F7F7</color>
+    <color name="whiteTextColor">#fff</color>
+    <color name="profileBackground">#fff</color>
+    <color name="blackTextColor">#000</color>
+    <color name="profileEditTextColor">#707070</color>
+
+
+    <color name="colorPrimary">#292929</color>
+    <color name="colorPrimaryDark">#292929</color>
+    <color name="colorAccent">#FDBE3B</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSearchIcon">#DBDBDB</color>
+    <color name="colorTextHint">#7B7B7B</color>
+    <color name="colorQuickActionsBackground">#2f2D2E</color>
+    <color name="colorIcons">#A4A4A4</color>
+    <color name="colorTextSubtitle">#CECECE</color>
+    <color name="colorDefaultNoteColor">#333333</color>
+    <color name="colorNoteSubtitleText">#FAFAFA</color>
+    <color name="colorMiscellaneousBackground">#1F1F1F</color>
+    <color name="colorNoteColor2">#FDBE3B</color>
+    <color name="colorNoteColor3">#FF4842</color>
+    <color name="colorNoteColor4">#3A52FC</color>
+    <color name="colorNoteColor5">#000000</color>
+    <color name="colorDelete">#FF4842</color>
+    <color name="colorSearchBackground">#333333</color>
+
+    <color name="colorPrimaryFitness">#1976D2</color>
+    <color name="colorPrimaryDarkFitmness">#1565C0</color>
+    <color name="colorAccentFitness">#FF4081</color>
+
+    <color name="background_color">#F5F5F5</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <color name="steps_color">#1976D2</color>
+    <color name="steps_text_color">#1976D2</color>
+    <color name="distance_text_color">#FF4081</color>
+    <color name="distance_color">#F44336</color>
 </resources>

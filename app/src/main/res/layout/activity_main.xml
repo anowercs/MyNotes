@@ -1,95 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
+    tools:openDrawer="start"
     >
 
-    <VideoView
-        android:id="@+id/videoView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:fitsSystemWindows="true"
 
+
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/material_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/lavender"
+                app:title="My Notes pad"
+                app:titleTextColor="@color/white"
+                app:navigationIcon="@drawable/appbarmenu"
+                app:navigationIconTint="@color/white"
+                app:menu="@menu/app_bar_items"
+
+
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+<!--  Frame layout  -->
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@drawable/background_search"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    >
+
+                    <!-- Search bar contents -->
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/colorSearchIcon" />
+
+                    <EditText
+                        android:id="@+id/inputSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:background="@null"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:hint="@string/search_notes"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:includeFontPadding="false"
+                        android:inputType="text"
+                        android:textColor="#DBDBDB"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/_13ssp" />
+                </LinearLayout>
+
+                <!-- Add this inside your layout, above the RecyclerView -->
+                <ProgressBar
+                    android:id="@+id/loadNotesProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    android:layout_marginTop="50dp"
+                    android:scaleX="1.7"
+                    android:scaleY="1.7"
+                    android:indeterminateTint="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:clipToPadding="false"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    app:layout_constraintBottom_toTopOf="@id/layoutQuickActions"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+                    android:nestedScrollingEnabled="true"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/layoutQuickActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorQuickActionsBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="visible"
+
+                    >
+
+                    <!-- Quick action buttons -->
+                    <ImageView
+                        android:id="@+id/imageAddNote"
+                        android:layout_width="@dimen/_23sdp"
+                        android:layout_height="@dimen/_23sdp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_add_outline"
+                        app:tint="@color/colorIcons" />
+
+                    <ImageView
+                        android:id="@+id/imageAddImage"
+                        android:layout_width="@dimen/_23sdp"
+                        android:layout_height="@dimen/_23sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_image"
+                        app:tint="@color/colorIcons" />
+
+                    <ImageView
+                        android:id="@+id/imageAddWebLink"
+                        android:layout_width="@dimen/_23sdp"
+                        android:layout_height="@dimen/_23sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_web_link"
+                        app:tint="@color/colorIcons" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageAddNoteMain"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:background="@drawable/background_add_button"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintBottom_toTopOf="@id/layoutQuickActions"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/layoutQuickActions"
+                    app:tint="@color/colorPrimary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_navigation_header"
+        app:menu="@menu/drawer_menu_icon"
         />
 
 
 
-    <LinearLayout
-        android:layout_width="400dp"
-        android:layout_height="486dp"
-        android:layout_gravity="center"
-        android:background="@drawable/tas"
-        android:orientation="vertical"
-        >
 
-        <TextView
-            android:id="@+id/tvDisplay"
-            android:layout_width="230dp"
-            android:layout_height="87dp"
-            android:layout_marginLeft="0.5in"
-            android:layout_marginTop="0.68in"
-            android:textColor="@color/black"
-            android:textSize="40dp"
-            android:textAlignment="textEnd"
-            android:paddingTop="20dp"
-
-
-            />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="73dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="65dp"
-
-            >
-
-            <Button
-                android:id="@+id/decrease"
-                android:layout_width="45dp"
-                android:layout_height="59dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/white"
-
-
-                />
-
-            <Button
-                android:id="@+id/reset"
-                android:layout_width="45dp"
-                android:layout_height="59dp"
-                android:layout_marginStart="0.860in"
-                android:layout_marginTop="1dp"
-                android:backgroundTint="@color/white"
-
-
-
-                />
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/addCount"
-            android:layout_width="95dp"
-            android:layout_height="116dp"
-            android:layout_marginStart="153dp"
-            android:layout_marginTop="-5dp"
-            android:backgroundTint="#d7e0d9"
-
-            />
-
-
-    </LinearLayout>
-
-
-
-</FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

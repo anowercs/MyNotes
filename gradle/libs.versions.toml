@@ -1,18 +1,48 @@
 [versions]
 agp = "8.5.0"
+amazonawsAwsAndroidSdkCognitoidentityprovider = "2.71.0"
+amplifyframeworkAwsAuthCognito = "2.14.5"
+amplifyframeworkAwsStorageS3 = "2.14.5"
+amplifyframeworkCore = "2.14.5"
 awsAndroidSdkAuthUi = "2.6.27"
 awsAndroidSdkCognito = "2.35.0"
+awsAndroidSdkCognitoidentityprovider = "2.55.0"
+awsAndroidSdkCognitoidentityproviderVersion = "2.22.8"
 awsAndroidSdkCore = "2.75.2"
+awsAndroidSdkDynamodb = "2.66.0"
+awsAndroidSdkDynamodbVersion = "2.72.0"
+awsAndroidSdkS3 = "2.55.0"
+awsAndroidSdkS3Version = "2.22.8"
+awsApi = "2.14.5"
+awsAuthCognito = "1.35.4"
+awsAuthCognitoVersion = "2.11.0"
+awsJavaSdkS3 = "1.12.604"
+awsJavaSdkS3Version = "1.12.589"
+awsStorageS3 = "1.35.4"
+awsStorageS3Version = "2.11.0"
 core = "2.19.1"
 coreVersion = "1.29.0"
 desugar_jdk_libs = "2.0.4"
+dynamodb = "2.20.108"
+dynamodbVersion = "2.20.145"
+glide = "4.12.0"
+imagepicker = "2.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+lottie = "6.3.0"
 material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
+mpandroidchart = "v3.1.0"
+playServicesFitness = "21.2.0"
+playServicesFitnessVersion = "21.1.0"
+roomRuntime = "2.6.1"
+roomRuntimeVersion = "2.5.2"
+roundedimageview = "2.3.0"
+sdpAndroid = "1.0.6"
+sspAndroid = "1.0.6"
 
 [libraries]
 aws-android-sdk-auth-core = { module = "com.amazonaws:aws-android-sdk-auth-core", version.ref = "awsAndroidSdkCognito" }
@@ -20,20 +50,57 @@ aws-android-sdk-auth-ui = { module = "com.amazonaws:aws-android-sdk-auth-ui", ve
 aws-android-sdk-auth-userpools = { module = "com.amazonaws:aws-android-sdk-auth-userpools", version.ref = "awsAndroidSdkAuthUi" }
 aws-android-sdk-cognito = { module = "com.amazonaws:aws-android-sdk-cognito", version.ref = "awsAndroidSdkCognito" }
 aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCognito" }
+aws-android-sdk-cognitoidentityprovider-v2228 = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCognitoidentityproviderVersion" }
+aws-android-sdk-cognitoidentityprovider-v2550 = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCognitoidentityprovider" }
+aws-android-sdk-cognitoidentityprovider-v2710 = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "amazonawsAwsAndroidSdkCognitoidentityprovider" }
 aws-android-sdk-core = { module = "com.amazonaws:aws-android-sdk-core", version.ref = "awsAndroidSdkCore" }
+aws-android-sdk-ddb-mapper = { module = "com.amazonaws:aws-android-sdk-ddb-mapper", version.ref = "awsAndroidSdkDynamodbVersion" }
+aws-android-sdk-dynamodb = { module = "com.amazonaws:aws-android-sdk-dynamodb", version.ref = "awsAndroidSdkDynamodb" }
+aws-android-sdk-dynamodb-v2720 = { module = "com.amazonaws:aws-android-sdk-dynamodb", version.ref = "awsAndroidSdkDynamodbVersion" }
+aws-android-sdk-mobile-client = { module = "com.amazonaws:aws-android-sdk-mobile-client", version.ref = "awsAndroidSdkDynamodbVersion" }
 aws-android-sdk-pinpoint = { module = "com.amazonaws:aws-android-sdk-pinpoint", version.ref = "awsAndroidSdkAuthUi" }
+aws-android-sdk-s3 = { module = "com.amazonaws:aws-android-sdk-s3", version.ref = "awsAndroidSdkS3" }
+aws-android-sdk-s3-v2228 = { module = "com.amazonaws:aws-android-sdk-s3", version.ref = "awsAndroidSdkS3Version" }
 aws-api = { module = "com.amplifyframework:aws-api", version.ref = "coreVersion" }
+aws-api-v2145 = { module = "com.amplifyframework:aws-api", version.ref = "awsApi" }
 aws-auth-cognito = { module = "com.amplifyframework:aws-auth-cognito", version.ref = "coreVersion" }
+aws-auth-cognito-v1354 = { module = "com.amplifyframework:aws-auth-cognito", version.ref = "awsAuthCognito" }
+aws-auth-cognito-v2110 = { module = "com.amplifyframework:aws-auth-cognito", version.ref = "awsAuthCognitoVersion" }
+aws-auth-cognito-v2145 = { module = "com.amplifyframework:aws-auth-cognito", version.ref = "amplifyframeworkAwsAuthCognito" }
+aws-datastore = { module = "com.amplifyframework:aws-datastore", version.ref = "amplifyframeworkAwsAuthCognito" }
+aws-java-sdk-cognitoidp = { module = "com.amazonaws:aws-java-sdk-cognitoidp", version.ref = "awsJavaSdkS3" }
+aws-java-sdk-s3 = { module = "com.amazonaws:aws-java-sdk-s3", version.ref = "awsJavaSdkS3" }
+aws-java-sdk-s3-v112589 = { module = "com.amazonaws:aws-java-sdk-s3", version.ref = "awsJavaSdkS3Version" }
+aws-storage-s3 = { module = "com.amplifyframework:aws-storage-s3", version.ref = "awsStorageS3" }
+aws-storage-s3-v2110 = { module = "com.amplifyframework:aws-storage-s3", version.ref = "awsStorageS3Version" }
+aws-storage-s3-v2145 = { module = "com.amplifyframework:aws-storage-s3", version.ref = "amplifyframeworkAwsStorageS3" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 core = { module = "com.amplifyframework:core", version.ref = "core" }
 core-v1290 = { module = "com.amplifyframework:core", version.ref = "coreVersion" }
+core-v2145 = { module = "com.amplifyframework:core", version.ref = "amplifyframeworkCore" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+dynamodb = { module = "software.amazon.awssdk:dynamodb", version.ref = "dynamodb" }
+dynamodb-enhanced = { module = "software.amazon.awssdk:dynamodb-enhanced", version.ref = "dynamodbVersion" }
+dynamodb-v220145 = { module = "software.amazon.awssdk:dynamodb", version.ref = "dynamodbVersion" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+play-services-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitness" }
+play-services-fitness-v2110 = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitnessVersion" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntimeVersion" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+room-runtime-v252 = { module = "androidx.room:room-runtime", version.ref = "roomRuntimeVersion" }
+roundedimageview = { module = "com.makeramen:roundedimageview", version.ref = "roundedimageview" }
+sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
+ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

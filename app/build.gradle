@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.anowercs.awsproject'
+    namespace 'com.anowercs.notespadpro'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.anowercs.awsproject"
+        applicationId "com.anowercs.notespadpro"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -15,43 +15,90 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        dataBinding true
+    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+
         }
     }
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
 dependencies {
 
+    // Android essentials
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+
+    // Testing
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    // Amplify core dependency
-    implementation libs.core
-    implementation libs.core.v1290
-    implementation libs.aws.auth.cognito
-    // Support for Java 8 features
-    coreLibraryDesugaring libs.desugar.jdk.libs
-    implementation libs.aws.android.sdk.core
-    implementation libs.aws.android.sdk.cognitoidentityprovider
 
-    implementation libs.aws.api // Optional: for API integration
+    // Amplify core dependency
+    implementation libs.aws.android.sdk.core
+    implementation libs.core
+    implementation libs.aws.auth.cognito
+
+    //AWS Authentication
     implementation libs.aws.android.sdk.auth.core
     implementation libs.aws.android.sdk.auth.userpools
     implementation libs.aws.android.sdk.cognitoidentityprovider
+
+
+    //AWS Services
+    //implementation libs.aws.api // Optional: for API integration
     implementation libs.aws.android.sdk.pinpoint
+    implementation libs.aws.android.sdk.s3
+    implementation libs.aws.storage.s3
+    //implementation libs.aws.android.sdk.dynamodb
+    implementation libs.aws.datastore
+    implementation libs.aws.android.sdk.mobile.client
+    implementation libs.aws.android.sdk.ddb.mapper
+
+
+    //Image loader
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+
+    //UI Components
+    implementation libs.sdp.android
+    implementation libs.ssp.android
+    implementation libs.roundedimageview
+
+
+    //Room Database
+    //implementation libs.room.runtime
+    //annotationProcessor libs.room.compiler
+
+    // Support for Java 8 features
+    coreLibraryDesugaring libs.desugar.jdk.libs
+
+
+    //implementation libs.dynamodb.v220145
+
+    implementation libs.lottie
+
+    //walk and graph
+    implementation libs.play.services.fitness
+    implementation libs.mpandroidchart // For the graph
+
+
+
+
 
 
 
