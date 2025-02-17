@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".AWSAmplify.MyAmplifyApp"
@@ -26,8 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AwsProject">
 
-        <!-- Add the service here, before or after your activities -->
-        <service android:name=".services.FitnessUploadService" />
+        <service
+            android:name=".services.FitnessUploadService"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity
             android:name=".activities.FitnessActivity"
