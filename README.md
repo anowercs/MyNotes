@@ -110,6 +110,7 @@ dependencies {
     implementation libs.mpandroidchart // For the graph
 
 }
+```
 
 ## Features in Development
  Offline support
