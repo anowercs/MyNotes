@@ -79,15 +79,24 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitness);
 
-        // Request step counter permission
+        // Request permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                        new String[]{
+                                Manifest.permission.ACTIVITY_RECOGNITION,
+                                Manifest.permission.POST_NOTIFICATIONS
+                        },
                         PERMISSION_REQUEST_ACTIVITY_RECOGNITION);
+            } else {
+                startFitnessService();
             }
         }
+
 
         initializeViews();
         initializeAWS();
@@ -97,6 +106,7 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         resetStepCounterAtMidnight();
         //addTestData();
     }
+
 
     // Add this method to test the graph
     private void addTestData() {
@@ -202,15 +212,7 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         // Configure basic chart settings
         setupChart();
     }
-    /*private void setupChart() {
-        fitnessChart.setTouchEnabled(true);
-        fitnessChart.setDragEnabled(true);
-        fitnessChart.setScaleEnabled(true);
-        fitnessChart.setPinchZoom(false);
-        fitnessChart.setDrawGridBackground(true);
-        fitnessChart.setBackgroundColor(Color.WHITE);
-        fitnessChart.getDescription().setEnabled(false);
-    }*/
+
 
     private void setupChart() {
         fitnessChart.setTouchEnabled(true);
@@ -231,7 +233,11 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
 
     private void startFitnessService() {
         Intent serviceIntent = new Intent(this, FitnessUploadService.class);
-        startService(serviceIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent);
+        } else {
+            startService(serviceIntent);
+        }
     }
 
     private void initializeAWS() {
@@ -412,54 +418,7 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
     }
 
 
-    /*private void updateUI(final int steps, final float distance,
-                          final List<Entry> stepEntries, final List<Entry> distanceEntries) {
-        // Update TextViews
-        stepsTextView.setText(String.format("Steps: %d", steps));
-        distanceTextView.setText(String.format("Distance: %.2f km", distance / 1000));
-        lastUpdatedText.setText("Last updated: " + new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date()));
 
-        // Setup X Axis (Time)
-        XAxis xAxis = fitnessChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
-        xAxis.setGranularity(2f);
-        xAxis.setLabelCount(12);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.format("%02d:00", (int)value);
-            }
-        });
-
-        // Setup Y Axes
-        setupYAxes();
-
-        // Create datasets
-        LineDataSet stepsDataSet = createStepsDataSet(stepEntries);
-        LineDataSet distanceDataSet = createDistanceDataSet(distanceEntries);
-
-        // Combine and set data
-        LineData lineData = new LineData(stepsDataSet, distanceDataSet);
-        fitnessChart.setData(lineData);
-        fitnessChart.getLegend().setEnabled(true);
-        fitnessChart.animateX(1000);
-        fitnessChart.invalidate();
-    }
-
-    private void setupYAxes() {
-        YAxis leftAxis = fitnessChart.getAxisLeft();
-        leftAxis.setTextColor(getResources().getColor(R.color.purple));
-        leftAxis.setDrawGridLines(true);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setSpaceTop(15f);
-
-        YAxis rightAxis = fitnessChart.getAxisRight();
-        rightAxis.setTextColor(getResources().getColor(R.color.purple));
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(0f);
-        rightAxis.setSpaceTop(15f);
-    }*/
 
     private void updateUI(final int steps, final float distance,
                           final List<Entry> stepEntries, final List<Entry> distanceEntries) {
@@ -479,44 +438,6 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         // Add padding
         fitnessChart.setExtraOffsets(10, 10, 10, 10);
 
-       /* // Setup X Axis
-        XAxis xAxis = fitnessChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
-        xAxis.setGridColor(Color.LTGRAY);
-        xAxis.setGridLineWidth(0.5f);
-        xAxis.setAxisLineWidth(1.5f);
-        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(12, true);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.format("%02d:00", (int)value);
-            }
-        });
-
-        // Setup Y Axes
-        setupYAxes();
-
-        // Create and style datasets
-        LineDataSet stepsDataSet = createStepsDataSet(stepEntries);
-        LineDataSet distanceDataSet = createDistanceDataSet(distanceEntries);
-
-        // Combine datasets
-        LineData lineData = new LineData(stepsDataSet, distanceDataSet);
-        fitnessChart.setData(lineData);
-
-        // Enable animation
-        fitnessChart.animateX(1500);
-
-        // Disable description and enable legend
-        fitnessChart.getDescription().setEnabled(false);
-        fitnessChart.getLegend().setEnabled(true);
-        fitnessChart.getLegend().setTextSize(12f);
-        fitnessChart.getLegend().setFormSize(12f);
-        fitnessChart.getLegend().setXEntrySpace(10f);
-
-        fitnessChart.invalidate();*/
 
         // X-Axis styling
         XAxis xAxis = fitnessChart.getXAxis();
@@ -623,20 +544,6 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         rightAxis.setSpaceTop(15f);
     }
 
-    /*private LineDataSet createStepsDataSet(List<Entry> entries) {
-        LineDataSet dataSet = new LineDataSet(entries, "Steps");
-        dataSet.setColor(getResources().getColor(R.color.purple));
-        dataSet.setCircleColor(getResources().getColor(R.color.purple));
-        dataSet.setLineWidth(2f);
-        dataSet.setCircleRadius(3f);
-        dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setCubicIntensity(0.2f);
-        dataSet.setDrawFilled(true);
-        dataSet.setFillColor(getResources().getColor(R.color.purple));
-        dataSet.setFillAlpha(50);
-        return dataSet;
-    }*/
 
     private LineDataSet createStepsDataSet(List<Entry> entries) {
         LineDataSet dataSet = new LineDataSet(entries, "Steps");
@@ -667,17 +574,6 @@ public class FitnessActivity extends AppCompatActivity implements SensorEventLis
         return dataSet;
     }
 
-    /*private LineDataSet createDistanceDataSet(List<Entry> entries) {
-        LineDataSet dataSet = new LineDataSet(entries, "Distance (km)");
-        dataSet.setColor(getResources().getColor(R.color.profilePrimaryDark));
-        dataSet.setCircleColor(getResources().getColor(R.color.profilePrimaryDark));
-        dataSet.setLineWidth(2f);
-        dataSet.setCircleRadius(3f);
-        dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setCubicIntensity(0.2f);
-        return dataSet;
-    }*/
 
     private LineDataSet createDistanceDataSet(List<Entry> entries) {
         LineDataSet dataSet = new LineDataSet(entries, "Distance (km)");
