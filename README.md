@@ -57,18 +57,60 @@ app/
    public static final String S3_REGION = "YOUR_REGION";
    public static final String S3_BUCKET_NAME = "YOUR_BUCKET_NAME";
 
-Dependencies
-gradleCopydependencies {
-    // AWS SDK
-    implementation 'com.amazonaws:aws-android-sdk-core:2.x.x'
-    implementation 'com.amazonaws:aws-android-sdk-dynamodb:2.x.x'
-    implementation 'com.amazonaws:aws-android-sdk-cognito:2.x.x'
-    
-    // UI & Charts
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+## Dependencies
+```gradle
+dependencies {
+    // Amplify core dependency
+    implementation libs.aws.android.sdk.core
+    implementation libs.core
+    implementation libs.aws.auth.cognito
+
+    //AWS Authentication
+    implementation libs.aws.android.sdk.auth.core
+    implementation libs.aws.android.sdk.auth.userpools
+    implementation libs.aws.android.sdk.cognitoidentityprovider
+
+
+    //AWS Services
+    //implementation libs.aws.api // Optional: for API integration
+    implementation libs.aws.android.sdk.pinpoint
+    implementation libs.aws.android.sdk.s3
+    implementation libs.aws.storage.s3
+    //implementation libs.aws.android.sdk.dynamodb
+    implementation libs.aws.datastore
+    implementation libs.aws.android.sdk.mobile.client
+    implementation libs.aws.android.sdk.ddb.mapper
+
+
+    //Image loader
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+
+    //UI Components
+    implementation libs.sdp.android
+    implementation libs.ssp.android
+    implementation libs.roundedimageview
+
+
+    //Room Database
+    //implementation libs.room.runtime
+    //annotationProcessor libs.room.compiler
+
+    // Support for Java 8 features
+    coreLibraryDesugaring libs.desugar.jdk.libs
+
+
+    //implementation libs.dynamodb.v220145
+
+    implementation libs.lottie
+
+    //walk and graph
+    implementation libs.play.services.fitness
+    implementation libs.mpandroidchart // For the graph
+
 }
-Features in Development
+## Features in Development
 
  Offline support
  Note sharing
@@ -76,7 +118,7 @@ Features in Development
  Custom workout tracking
  Social features
 
-Contributing
+## Contributing
 Feel free to submit issues and enhancement requests.
-License
+## License
 MIT License
