@@ -144,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Exception e) {
-                        //hideLoadingDialog();
+                        hideProgressDialog();
                         Log.e("AWS", "SignUp error", e);
                         runOnUiThread(() -> {
                             if (e instanceof UsernameExistsException) {
@@ -195,7 +195,9 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser() {
 
         if (!isNetworkAvailable()) {
+            hideProgressDialog();
             showToast("No internet connection");
+
             return;
         }
 
@@ -240,6 +242,7 @@ public class RegisterActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             //BTN_signUp.setEnabled(true);
                             // Hide progress dialog/indicator
+                            hideProgressDialog();
                             if (e instanceof CodeMismatchException) {
                                 showToast("Invalid OTP. Please try again");
                             } else {
