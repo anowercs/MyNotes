@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -219,13 +221,23 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
 
         findViewById(R.id.imageAddImage).setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
-                        REQUEST_CODE_STORAGE_PERMISSION);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                            REQUEST_CODE_STORAGE_PERMISSION);
+                } else {
+                    selectImage();
+                }
             } else {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_STORAGE_PERMISSION);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_CODE_STORAGE_PERMISSION);
+                } else {
+                    selectImage();
+                }
             }
         });
 
@@ -744,7 +756,7 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
                 }
             }
         } else if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
-            if(data != null){
+            /*if(data != null){
                 Uri selectedImageUri = data.getData();
                 if(selectedImageUri != null){
                     try {
@@ -758,9 +770,43 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
                         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+            }*/
+            if (data != null && data.getData() != null) {
+                Uri selectedImageUri = data.getData();
+                try {
+                    String filePath = getRealPathFromURI(selectedImageUri);
+                    if (filePath != null) {
+                        Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+                        intent.putExtra("isFromQuickActions", true);
+                        intent.putExtra("quickActionType", "image");
+                        intent.putExtra("imagePath", filePath);
+                        startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+                    } else {
+                        Toast.makeText(this, "Unable to get image path", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error handling selected image: " + e.getMessage());
+                    Toast.makeText(this, "Error selecting image", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
+
+    private String getRealPathFromURI(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) {
+            return uri.getPath();
+        }
+        try {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            cursor.close();
+        }
+    }
+
     //##################################################################################################################################
     private void showAddURLDialog(){
         if(dialogAddURL == null){

@@ -271,102 +271,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    /*private void uploadImageToS3() {
-
-
-        if (imageFile == null || !imageFile.exists()) {
-            Log.e("S3Upload", "Error: Image file is null or does not exist!");
-            Toast.makeText(this, "Image file is missing!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
-            @Override
-            public void onResult(UserStateDetails userStateDetails) {
-                Log.i("AWSInit", "AWSMobileClient initialized: " + userStateDetails.getUserState());
-                uploadImageToS3(); // Retry uploading after initialization
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.e("AWSInit", "AWS initialization failed.", e);
-                Toast.makeText(ProfileActivity.this, "AWS initialization failed. Try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-        showProgressDialog("Uploading Image...");
-
-        String email = EDT_email.getText().toString();
-
-        String fileKey = "users/"+email+"/" + imageFile.getName();  // S3 folder structure
-        Log.d("S3Upload_filekey", "File Key: " + fileKey);
-
-        transferUtility =TransferUtility.builder()
-                        .context(getApplicationContext())
-                        .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
-                        .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
-                        .build();
-
-
-        TransferObserver uploadObserver = transferUtility.upload(
-                S3_BUCKET_NAME,
-                fileKey,
-                imageFile
-        );
-
-        uploadObserver.setTransferListener(new TransferListener() {
-            @Override
-            public void onStateChanged(int id, TransferState state) {
-                if (state == TransferState.COMPLETED) {
-                    hideProgressDialog();
-                    image_url = "https://" + S3_BUCKET_NAME + ".s3.amazonaws.com/" + fileKey;
-                    List<AuthUserAttribute> attributes = new ArrayList<>();
-                    attributes.add(new AuthUserAttribute(AuthUserAttributeKey.picture(), image_url));
-
-                    Log.d("S3Upload_", "Upload successful: " + image_url);
-                    // Update all attributes at once
-                    Amplify.Auth.updateUserAttributes(
-                            attributes,
-                            result -> runOnUiThread(() ->{
-                                Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                                showImageFromS3();
-                            }),
-                            error -> runOnUiThread(() -> {
-                                Toast.makeText(ProfileActivity.this, "Update failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                                error.printStackTrace(); // Debugging purpose
-                            })
-                    );
-
-                    Log.d("S3Upload", "Upload successful: " + image_url);
-                    Toast.makeText(ProfileActivity.this, "Upload successful!", Toast.LENGTH_SHORT).show();
-                } else if (state == TransferState.FAILED) {
-                    hideProgressDialog();
-                    Log.d("S3Upload_failed", "upload is not done: " + image_url);
-                    Toast.makeText(ProfileActivity.this, "Upload failed!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-                int percentage = (int) (bytesCurrent * 100 / bytesTotal);
-                updateProgressDialog(percentage);
-            }
-
-            @Override
-            public void onError(int id, Exception ex) {
-                hideProgressDialog();
-                Log.e("S3Upload", "Error: " + ex.getMessage());
-                Log.d("S3Upload_crush", "Error: " + ex.getMessage());
-                Toast.makeText(ProfileActivity.this, "Upload error!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            showImageFromS3(); // ✅ Delay image load slightly after upload
-        }, 2000);
-    }*/
-
     private void uploadImageToS3() {
         if (imageFile == null || !imageFile.exists()) {
             Toast.makeText(this, "Image file is missing!", Toast.LENGTH_SHORT).show();
@@ -525,44 +429,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /*private void enableEditing(boolean enable) {
-        EDT_fullName.setEnabled(enable);
-        EDT_fullName.setFocusable(enable);
-        EDT_fullName.setFocusableInTouchMode(enable);
-        EDT_fullName.setClickable(enable);
 
-        EDT_mobileNumber.setEnabled(enable);
-        EDT_mobileNumber.setFocusable(enable);
-        EDT_mobileNumber.setFocusableInTouchMode(enable);
-        EDT_mobileNumber.setClickable(enable);
-
-        *//*EDT_email.setEnabled(enable);
-        EDT_email.setFocusable(enable);
-        EDT_email.setFocusableInTouchMode(enable);
-        EDT_email.setClickable(enable);*//*
-
-        EDT_address.setEnabled(enable);
-        EDT_address.setFocusable(enable);
-        EDT_address.setFocusableInTouchMode(enable);
-        EDT_address.setClickable(enable);
-
-        EDT_dob.setEnabled(enable);
-        EDT_dob.setFocusable(enable);
-        EDT_dob.setFocusableInTouchMode(enable);
-        EDT_dob.setClickable(enable);
-
-        //IV_change_profile.setVisibility(enable ? View.VISIBLE : View.GONE);
-
-        if (enable) {
-            EDT_fullName.requestFocus();
-            EDT_fullName.setSelection(EDT_fullName.getText().length()); // Place cursor at the end
-
-            // Show keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(EDT_fullName, InputMethodManager.SHOW_IMPLICIT);
-        }
-
-    }*/
     private void enableEditing(boolean enable) {
         // Safely enable/disable EditText fields with null checks
         if (EDT_fullName != null) {
@@ -604,42 +471,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
-
-   /* private void saveProfileData( ) {
-
-        showProgressDialog("Updating profile...");
-        // Get updated values safely
-        String name = EDT_fullName.getText() != null ? EDT_fullName.getText().toString().trim() : "";
-        String mobile = EDT_mobileNumber.getText() != null ? EDT_mobileNumber.getText().toString().trim() : "";
-        //String email = EDT_email.getText() != null ? EDT_email.getText().toString().trim() : "";
-        String address = EDT_address.getText() != null ? EDT_address.getText().toString().trim() : "";
-        String dob = EDT_dob.getText() != null ? EDT_dob.getText().toString().trim() : "";
-
-        // Create a list of attributes to update
-        List<AuthUserAttribute> attributes = new ArrayList<>();
-        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.name(), name));
-        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.phoneNumber(), mobile));
-        //attributes.add(new AuthUserAttribute(AuthUserAttributeKey.email(), email));
-        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.address(), address));
-        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.birthdate(), dob));
-        //attributes.add(new AuthUserAttribute(AuthUserAttributeKey.picture(), image_url));
-
-        // Update all attributes at once
-        Amplify.Auth.updateUserAttributes(
-                attributes,
-                result -> runOnUiThread(() ->{
-                            hideProgressDialog();
-                            Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                        }),
-                error -> runOnUiThread(() -> {
-                    hideProgressDialog();
-                    Toast.makeText(ProfileActivity.this, "Update failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                    error.printStackTrace(); // Debugging purpose
-                })
-        );
-
-
-    }*/
 
     private void saveProfileData() {
         try {

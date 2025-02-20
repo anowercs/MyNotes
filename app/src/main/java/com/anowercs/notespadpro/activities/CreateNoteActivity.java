@@ -196,7 +196,16 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteText.setText(alreadyAvailableNote.getNoteText());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
 
+        if (alreadyAvailableNote.getWebLink() != null &&
+                !alreadyAvailableNote.getWebLink().trim().isEmpty()) {
+            textWebURL.setText(alreadyAvailableNote.getWebLink());
+            layoutWebURL.setVisibility(View.VISIBLE);
+        }
+
         if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()) {
+
+
+
             if (alreadyAvailableNote.getImagePath().startsWith("http")) {
                 // Load S3 URL image
                 Glide.with(this)
@@ -416,11 +425,50 @@ public class CreateNoteActivity extends AppCompatActivity {
         note.setNoteText(inputNoteText.getText().toString());
         note.setDateTime(textDateTime.getText().toString());
         note.setColor(selectedNoteColor);
-        note.setImagePath(imagePath);
+        //note.setImagePath(imagePath);
 
-        if (layoutWebURL.getVisibility() == View.VISIBLE) {
-            note.setWebLink(textWebURL.getText().toString());
+        // Debug logs
+        Log.d("SaveNote", "Incoming imagePath: " + imagePath);
+        Log.d("SaveNote", "selectedImagePath: " + selectedImagePath);
+        if (alreadyAvailableNote != null) {
+            Log.d("SaveNote", "Existing note image path: " + alreadyAvailableNote.getImagePath());
         }
+
+        // Image path logic
+        if (alreadyAvailableNote != null) {
+            if ((imagePath == null || imagePath.isEmpty()) &&
+                    (selectedImagePath == null || selectedImagePath.isEmpty())) {
+                // No new image selected, keep existing image
+                note.setImagePath(alreadyAvailableNote.getImagePath());
+                Log.d("SaveNote", "Keeping existing image: " + alreadyAvailableNote.getImagePath());
+            } else if (imagePath != null && !imagePath.isEmpty()) {
+                // New S3 image
+                note.setImagePath(imagePath);
+                Log.d("SaveNote", "Setting new S3 image: " + imagePath);
+            } else if (selectedImagePath != null && !selectedImagePath.isEmpty()) {
+                // New local image
+                note.setImagePath(selectedImagePath);
+                Log.d("SaveNote", "Setting new local image: " + selectedImagePath);
+            }
+        } else {
+            // New note
+            note.setImagePath(imagePath != null && !imagePath.isEmpty() ? imagePath : selectedImagePath);
+            Log.d("SaveNote", "Setting image for new note: " + note.getImagePath());
+        }
+
+
+        if (layoutWebURL.getVisibility() == View.VISIBLE && textWebURL.getText() != null) {
+            String webLink = textWebURL.getText().toString();
+            note.setWebLink(webLink);
+            Log.d("CreateNote", "Setting web link: " + webLink);
+        }
+
+
+
+        /*if (layoutWebURL.getVisibility() == View.VISIBLE) {
+            note.setWebLink(textWebURL.getText().toString());
+            Log.d("CreateNote", "Web link: " + note.getWebLink());
+        }*/
 
         // Save note in background thread
         new Thread(() -> {
